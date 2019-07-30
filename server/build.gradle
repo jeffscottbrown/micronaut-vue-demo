@@ -12,6 +12,7 @@ group "server"
 repositories {
     mavenCentral()
     maven { url "https://jcenter.bintray.com" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 configurations {
@@ -37,6 +38,12 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+
+    annotationProcessor 'io.micronaut.data:micronaut-data-processor:1.0.0.BUILD-SNAPSHOT'
+    compile 'io.micronaut.data:micronaut-data-jdbc:1.0.0.BUILD-SNAPSHOT'
+    compileOnly 'jakarta.persistence:jakarta.persistence-api:2.2.2'
+    runtime 'io.micronaut.configuration:micronaut-jdbc-hikari'
+    runtime 'com.h2database:h2'
 }
 
 test.classpath += configurations.developmentOnly
