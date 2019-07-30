@@ -1,0 +1,22 @@
+
+allprojects {
+    group 'micronautvue'
+    version '1.0.0.BUILD-SNAPSHOT'
+}
+
+task copyClientResources(dependsOn: ':ui:build') {
+    group = 'build'
+    description = 'Copy client resources into server'
+}
+
+copyClientResources.doFirst {
+    copy {
+        from "${project(':ui').projectDir}/dist"
+        into "${project(':server').buildDir}/resources/main/public/"
+    }
+}
+
+task assembleServerAndClient(dependsOn: ['copyClientResources', ':server:shadowJar']) {
+    group = 'build'
+    description = 'Build combined server & client JAR'
+}
