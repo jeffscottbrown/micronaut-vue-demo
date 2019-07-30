@@ -3,12 +3,12 @@
         <h1>Person Manager Demo</h1>
         <form @submit.prevent="validate() ? addPerson() : null">
             <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="person-firstName">First Name</label>
-                    <input class="form-control" id="person-firstName" placeholder="Enter First Name" type="text"
-                           v-model="newPerson.firstName">
+                <label class="col-sm-2 col-form-label" for="person-firstName">First Name</label>
+                <input class="form-control" id="person-firstName" placeholder="Enter First Name" type="text"
+                       v-model="newPerson.firstName">
             </div>
             <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="person-lastName">Last Name</label>
+                <label class="col-sm-2 col-form-label" for="person-lastName">Last Name</label>
                 <input class="form-control" id="person-lastName" placeholder="Enter Last Name" type="text"
                        v-model="newPerson.lastName">
             </div>
@@ -38,21 +38,33 @@
             validate() {
                 return (this.newPerson.firstName !== '' && this.newPerson.lastName !== '')
             },
-            deletePerson(event) {
-                this.people = this.people.filter(p => p.id !== event.id)
+            async loadPeople() {
+                const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/people`)
+                this.people = await response.json()
             },
-            addPerson() {
-                this.people.push({
-                    firstName: this.newPerson.firstName,
-                    lastName: this.newPerson.lastName,
-                    id: this.people.length + 1
+            async deletePerson(event) {
+                const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/people/${event.id}`, {
+                    method: 'DELETE'
                 })
+                this.loadPeople()
+            },
+            async addPerson() {
+                await fetch(`${process.env.VUE_APP_SERVER_URL}/people`,
+                    {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(this.newPerson)
+                    })
                 this.newPerson.firstName = ''
                 this.newPerson.lastName = ''
+                this.loadPeople()
             }
         },
         components: {
             personList: PersonList
+        },
+        created() {
+            this.loadPeople()
         }
     }
 </script>
