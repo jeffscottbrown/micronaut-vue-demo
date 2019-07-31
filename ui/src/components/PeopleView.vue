@@ -43,7 +43,7 @@
                 this.people = await response.json()
             },
             async deletePerson(event) {
-                const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/people/${event.id}`, {
+                await fetch(`${process.env.VUE_APP_SERVER_URL}/people/${event.id}`, {
                     method: 'DELETE'
                 })
                 this.loadPeople()
