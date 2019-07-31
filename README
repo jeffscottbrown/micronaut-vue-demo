@@ -1,0 +1,33 @@
+Simple Micronaut Vue Demo
+
+The server subproject includes a Micronaut service for managing
+Person instances in a relational database.
+
+The ui subproject includes a Vue front end which communicates
+with the Micronaut service.
+
+To run the services you will need to have JDK 8 or later
+installed and configured.
+
+Run the server:
+
+./gradlew server:run
+
+After the server starts run the ui:
+
+./gradlew ui:run
+
+After the ui starts up open a browser to send a request
+to http://localhost:8080/ to access the UI.
+
+The server is configured to use an in memory database so
+the data will disappear when the process is terminated.
+
+To build a standalone executable jar to serve up both
+the ui and the REST api, execute the assembleServerAndClient task:
+
+./gradlew assembleServerAndClient
+
+Run the standalone jar:
+
+java -jar server/build/libs/server-0.1-all.jar
