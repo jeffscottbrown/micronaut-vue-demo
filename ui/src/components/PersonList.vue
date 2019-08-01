@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="person in people">
+        <tr v-for="person in people" :key="person.id">
             <td>
                 <form @submit.prevent="deletePerson(person.id)">
                     <input class="btn btn-danger" type="submit" value="Delete"/>
