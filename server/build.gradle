@@ -39,8 +39,8 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
-    annotationProcessor 'io.micronaut.data:micronaut-data-processor:1.0.0.BUILD-SNAPSHOT'
-    compile 'io.micronaut.data:micronaut-data-jdbc:1.0.0.BUILD-SNAPSHOT'
+    annotationProcessor 'io.micronaut.data:micronaut-data-processor:1.0.0.M5'
+    compile 'io.micronaut.data:micronaut-data-jdbc:1.0.0.M5'
     compileOnly 'jakarta.persistence:jakarta.persistence-api:2.2.2'
     runtime 'io.micronaut.configuration:micronaut-jdbc-hikari'
     runtime 'com.h2database:h2'
